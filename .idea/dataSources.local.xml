@@ -15,7 +15,10 @@
               <node kind="schema" qname="@" />
             </node>
             <node kind="database" qname="tennis_scoreboard">
-              <node kind="schema" qname="tennis" />
+              <node kind="schema">
+                <name qname="tennis" />
+                <name qname="public" />
+              </node>
             </node>
           </node>
         </introspection-scope>
