@@ -3,6 +3,7 @@ package hibernate;
 import entity.Match;
 import entity.OngoingMatch;
 import entity.Player;
+import entity.Score;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -45,19 +46,47 @@ public class HibernateRunner {
              Session session = sessionFactoryH2.openSession()) {
             session.beginTransaction();
 
-            session.persist(OngoingMatch.builder()
-                    .player1(1)
-                    .player2(2)
-                    .build()
-            );
+            OngoingMatch match1 = OngoingMatch.builder()
+                    .score(Score.builder()
+                            .player1(1)
+                            .player2(2)
+                            .build())
+                    .build();
 
-            session.persist(OngoingMatch.builder()
-                    .player1(3)
-                    .player2(4)
-                    .build()
-            );
+            OngoingMatch match2 = OngoingMatch.builder()
+                    .score(Score.builder()
+                            .player1(3)
+                            .player2(4)
+                            .build())
+                    .build();
 
-            session.get(OngoingMatch.class, 1);
+            session.persist(match1);
+
+            session.persist(match2);
+
+            match2.getScore().winPoint(3);
+            match2.getScore().winPoint(3);
+            match2.getScore().winPoint(3);
+            match2.getScore().winPoint(3);
+            match2.getScore().winPoint(3);
+
+            System.out.println(match2);
+            System.out.println("---------\n\n\n");
+
+
+//            OngoingMatch ongoingMatch = session.get(OngoingMatch.class, 1);
+//            System.out.println(ongoingMatch.getScore().getSet2());
+
+            System.out.println(session.get(OngoingMatch.class, 2));
+            System.out.println("---------\n\n\n");
+
+            session.getTransaction().commit();
+        }
+
+        try (SessionFactory sessionFactoryH2 = HibernateUtil.buildSessionFactoryH2();
+             Session session = sessionFactoryH2.openSession()) {
+            session.beginTransaction();
+
 
             System.out.println(session.get(OngoingMatch.class, 2));
 
