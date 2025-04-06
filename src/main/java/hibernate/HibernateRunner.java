@@ -38,6 +38,8 @@ public class HibernateRunner {
 //            session.persist(match);
 
 //            System.out.println(session.get(Match.class, 1));
+            var players = session.createQuery("select p from Player p").list();
+            System.out.println(players);
 
             session.getTransaction().commit();
         }
