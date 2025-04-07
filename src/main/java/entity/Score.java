@@ -1,7 +1,6 @@
 package entity;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
