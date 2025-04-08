@@ -1,7 +1,7 @@
 package service;
 
 import dao.PlayerRepository;
-import dto.ReadPlayerDto;
+import dto.PlayerReadDto;
 import lombok.RequiredArgsConstructor;
 import mapper.PlayerReadMapper;
 
@@ -18,7 +18,7 @@ public class PlayerService {
         return maybePlayer.isPresent();
     }
 
-    public Optional<ReadPlayerDto> findPlayerById(Long id) {
+    public Optional<PlayerReadDto> findPlayerById(Long id) {
         return playerRepository.findById(id).map(playerReadMapper::mapFrom);
     }
 }
