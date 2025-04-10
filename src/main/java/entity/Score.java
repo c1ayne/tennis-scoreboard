@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Embeddable
 public class Score {
-    private Integer player1;
-    private Integer player2;
+    private Long player1;
+    private Long player2;
 
     @Builder.Default
     private Integer set1 = 0;
@@ -31,9 +31,9 @@ public class Score {
     private Integer point2 = 0;
 
     @Builder.Default
-    private Integer winner = null;
+    private Long winner = null;
 
-    public void winPoint(Integer player) {
+    public void winPoint(Long player) {
         if (player1.equals(player)) {
             if (point1.equals(0)) {
                 point1 = 15;
@@ -75,7 +75,7 @@ public class Score {
         }
     }
 
-    private void winGame(Integer player) {
+    private void winGame(Long player) {
         if (player1.equals(player)) {
             game1++;
             if (game1 >= 6 && (game1 - game2 >=2)) {
@@ -91,7 +91,7 @@ public class Score {
         point2 = 0;
     }
 
-    private void winSet(Integer player){
+    private void winSet(Long player){
         if (player1.equals(player)) {
             set1++;
             if (set1 == 2) {
@@ -105,7 +105,7 @@ public class Score {
         }
     }
 
-    private void winMatch(Integer player) {
+    private void winMatch(Long player) {
         winner = player;
     }
 }

@@ -3,6 +3,8 @@ package dao;
 import entity.Player;
 import jakarta.persistence.EntityManager;
 
+import java.util.List;
+
 public class PlayerRepository extends BaseRepository<Long, Player>{
 
     public PlayerRepository(EntityManager entityManager) {
@@ -10,9 +12,11 @@ public class PlayerRepository extends BaseRepository<Long, Player>{
     }
 
     public Player findByName(String name) {
-        return getEntityManager()
+        List<Player> players = getEntityManager()
                 .createQuery("select p from Player p where lower(p.name) = lower(:name)", Player.class)
                 .setParameter("name", name)
-                .getSingleResult();
+                .getResultList();
+
+        return players.isEmpty() ? null : players.getFirst();
     }
 }
