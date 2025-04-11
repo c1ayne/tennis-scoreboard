@@ -7,6 +7,7 @@ public class OngoingMatchCreateMapper implements Mapper<OngoingMatchCreateDto, O
     @Override
     public OngoingMatch mapFrom(OngoingMatchCreateDto object) {
         return OngoingMatch.builder()
+                .id(object.id())
                 .score(object.score())
                 .build();
     }

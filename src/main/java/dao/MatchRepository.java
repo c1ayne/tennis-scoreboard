@@ -5,8 +5,9 @@ import entity.Player;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
+import java.util.UUID;
 
-public class MatchRepository extends BaseRepository<Long, Match> {
+public class MatchRepository extends BaseRepository<UUID, Match> {
 
     public MatchRepository(EntityManager entityManager) {
         super(entityManager, Match.class);

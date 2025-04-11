@@ -2,5 +2,8 @@ package dto;
 
 import entity.Score;
 
-public record OngoingMatchCreateDto (Score score) {
+import java.util.UUID;
+
+public record OngoingMatchCreateDto (UUID id,
+                                     Score score) {
 }

@@ -1,8 +1,9 @@
 package dto;
 
-public record MatchReadDto(Long id,
+import java.util.UUID;
+
+public record MatchReadDto(UUID id,
                            PlayerReadDto player1,
                            PlayerReadDto player2,
                            PlayerReadDto winner
-                            ) {
-}
+                            ) { }

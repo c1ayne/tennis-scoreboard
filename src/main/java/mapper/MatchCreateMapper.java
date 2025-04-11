@@ -12,6 +12,7 @@ public class MatchCreateMapper implements Mapper<MatchCreateDto, Match> {
     @Override
     public Match mapFrom(MatchCreateDto object) {
         return Match.builder()
+                .id(object.id())
                 .player1(playerRepository.findById(object.player1())
                         .orElseThrow(IllegalArgumentException::new))
                 .player2(playerRepository.findById(object.player2())

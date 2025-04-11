@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import mapper.*;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class OngoingMatchService {
@@ -35,15 +36,18 @@ public class OngoingMatchService {
                 ? playerRepository.save(playerCreateMapper.mapFrom(new PlayerCreateDto(player2))).getId()
                 // name found
                 : playerReadMapper.mapFrom(playerRepository.findByName(player2)).id();
+        UUID matchId = UUID.randomUUID();
+
         return ongoingMatchReadMapper.mapFrom(ongoingMatchRepository.save(
                 ongoingMatchCreateMapper.mapFrom(
-                        new OngoingMatchCreateDto(Score.builder()
-                                .player1(id1)
-                                .player2(id2)
-                                .build()))));
+                        new OngoingMatchCreateDto(matchId,
+                                Score.builder()
+                                        .player1(id1)
+                                        .player2(id2)
+                                        .build()))));
     }
 
-    public OngoingMatchReadDto winPoint(Long matchId, Long player) {
+    public OngoingMatchReadDto winPoint(UUID matchId, Long player) {
         OngoingMatchReadDto match = ongoingMatchRepository.findById(matchId)
                 .map(ongoingMatchReadMapper::mapFrom)
                 .orElseThrow(() -> new EntityNotFoundException("match not founded"));
@@ -92,7 +96,7 @@ public class OngoingMatchService {
         return match;
     }
 
-    private OngoingMatchReadDto winGame(Long matchId, Long player) {
+    private OngoingMatchReadDto winGame(UUID matchId, Long player) {
         OngoingMatchReadDto match = ongoingMatchRepository.findById(matchId)
                 .map(ongoingMatchReadMapper::mapFrom)
                 .orElseThrow(() -> new EntityNotFoundException("match not founded"));
@@ -115,7 +119,7 @@ public class OngoingMatchService {
         return match;
     }
 
-    private OngoingMatchReadDto winSet(Long matchId, Long player) {
+    private OngoingMatchReadDto winSet(UUID matchId, Long player) {
         OngoingMatchReadDto match = ongoingMatchRepository.findById(matchId)
                 .map(ongoingMatchReadMapper::mapFrom)
                 .orElseThrow(() -> new EntityNotFoundException("match not founded"));
@@ -136,11 +140,13 @@ public class OngoingMatchService {
         return match;
     }
 
-    private MatchReadDto winMatch(Long matchId, Long winner) {
+    private MatchReadDto winMatch(UUID matchId, Long winner) {
         OngoingMatchReadDto match = ongoingMatchRepository.findById(matchId)
                 .map(ongoingMatchReadMapper::mapFrom)
                 .orElseThrow(() -> new EntityNotFoundException("match not founded"));
-        MatchCreateDto matchCreateDto = new MatchCreateDto(match.score().getPlayer1(),
+
+        MatchCreateDto matchCreateDto = new MatchCreateDto(matchId,
+                match.score().getPlayer1(),
                 match.score().getPlayer2(),
                 winner);
 

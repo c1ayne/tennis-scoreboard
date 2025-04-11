@@ -1,6 +1,9 @@
 package dto;
 
-public record MatchCreateDto (Long player1,
+import java.util.UUID;
+
+public record MatchCreateDto (UUID id,
+                              Long player1,
                               Long player2,
                               Long winner) {
 }

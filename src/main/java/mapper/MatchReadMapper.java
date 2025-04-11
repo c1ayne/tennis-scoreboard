@@ -10,7 +10,8 @@ public class MatchReadMapper implements Mapper<Match, MatchReadDto> {
 
     @Override
     public MatchReadDto mapFrom(Match object) {
-        return new MatchReadDto(object.getId(),
+        return new MatchReadDto(
+                object.getId(),
                 playerReadMapper.mapFrom(object.getPlayer1()),
                 playerReadMapper.mapFrom(object.getPlayer2()),
                 playerReadMapper.mapFrom(object.getWinner())

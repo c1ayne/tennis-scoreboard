@@ -2,6 +2,8 @@ package dto;
 
 import entity.Score;
 
-public record OngoingMatchReadDto (Long id,
+import java.util.UUID;
+
+public record OngoingMatchReadDto (UUID id,
                                    Score score) {
 }
