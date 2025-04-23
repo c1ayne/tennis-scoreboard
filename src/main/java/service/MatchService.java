@@ -13,26 +13,26 @@ import mapper.PlayerReadMapper;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class MatchService {
     private final MatchRepository matchRepository;
     private final MatchCreateMapper matchCreateMapper;
     private final MatchReadMapper matchReadMapper;
-    private final PlayerReadMapper playerReadMapper;
 
-    public Long create(MatchCreateDto matchDto) {
+    public UUID create(MatchCreateDto matchDto) {
         Match match = matchCreateMapper.mapFrom(matchDto);
         return matchRepository.save(match).getId();
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(UUID id) {
         var maybeMatch = matchRepository.findById(id);
         maybeMatch.ifPresent(match -> matchRepository.delete(id));
         return maybeMatch.isPresent();
     }
 
-    public Optional<MatchReadDto> findMatchById(Long id) {
+    public Optional<MatchReadDto> findMatchById(UUID id) {
         return matchRepository.findById(id).map(matchReadMapper::mapFrom);
     }
 

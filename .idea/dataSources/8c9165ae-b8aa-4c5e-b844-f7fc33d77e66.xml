@@ -3,15 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G</Grants>
-      <IntrospectionStateNumber>14005</IntrospectionStateNumber>
+      <IntrospectionStateNumber>14007</IntrospectionStateNumber>
       <ServerVersion>16.4</ServerVersion>
       <StartupTime>1742915023</StartupTime>
       <TimeZones>true ACDT
@@ -838,7 +830,7 @@ false Zulu
 14643||10|C|G
 14643||-9223372036854775808|U|G
 14643||10|U|G</Grants>
-      <IntrospectionStateNumber>14005</IntrospectionStateNumber>
+      <IntrospectionStateNumber>14007</IntrospectionStateNumber>
       <ObjectId>41084</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -7627,15 +7619,15 @@ false Zulu
     <schema id="513" parent="7" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>14005</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2025-04-11.21:32:51</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>14007</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2025-04-11.21:33:40</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
     <schema id="514" parent="7" name="tennis">
-      <IntrospectionStateNumber>14005</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2025-04-11.21:32:51</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>14007</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2025-04-11.21:33:40</LastIntrospectionLocalTimestamp>
       <ObjectId>41094</ObjectId>
       <StateNumber>13877</StateNumber>
       <OwnerName>postgres</OwnerName>
@@ -7662,13 +7654,19 @@ false Zulu
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <table id="518" parent="514" name="players">
+    <table id="518" parent="514" name="matches">
+      <ObjectId>57514</ObjectId>
+      <StateNumber>14006</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="519" parent="514" name="players">
       <ObjectId>49402</ObjectId>
       <StateNumber>13995</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <column id="519" parent="516" name="id">
+    <column id="520" parent="516" name="id">
       <DefaultExpression>nextval(&apos;distributor_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -7677,37 +7675,37 @@ false Zulu
       <SequenceId>16754</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="520" parent="516" name="article">
+    <column id="521" parent="516" name="article">
       <Position>2</Position>
       <StateNumber>1007</StateNumber>
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="521" parent="516" name="code">
+    <column id="522" parent="516" name="code">
       <Position>3</Position>
       <StateNumber>1007</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="522" parent="516" name="title">
+    <column id="523" parent="516" name="title">
       <Position>4</Position>
       <StateNumber>1007</StateNumber>
       <StoredType>varchar(200)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="523" parent="516" name="category">
+    <column id="524" parent="516" name="category">
       <Position>5</Position>
       <StateNumber>1007</StateNumber>
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="524" parent="516" name="price">
+    <column id="525" parent="516" name="price">
       <Position>6</Position>
       <StateNumber>1007</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="525" parent="516" name="distributor_pkey">
+    <index id="526" parent="516" name="distributor_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16759</ObjectId>
@@ -7716,7 +7714,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="526" parent="516" name="distributor_code_key">
+    <index id="527" parent="516" name="distributor_code_key">
       <ColNames>code</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16761</ObjectId>
@@ -7724,20 +7722,85 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="527" parent="516" name="distributor_pkey">
+    <key id="528" parent="516" name="distributor_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16760</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1007</StateNumber>
       <UnderlyingIndexId>16759</UnderlyingIndexId>
     </key>
-    <key id="528" parent="516" name="distributor_code_key">
+    <key id="529" parent="516" name="distributor_code_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16762</ObjectId>
       <StateNumber>1007</StateNumber>
       <UnderlyingIndexId>16761</UnderlyingIndexId>
     </key>
-    <column id="529" parent="518" name="id">
+    <column id="530" parent="518" name="id">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>14006</StateNumber>
+      <StoredType>uuid|0s</StoredType>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="531" parent="518" name="player1">
+      <Position>2</Position>
+      <StateNumber>14006</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="532" parent="518" name="player2">
+      <Position>3</Position>
+      <StateNumber>14006</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="533" parent="518" name="winner">
+      <Position>4</Position>
+      <StateNumber>14006</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="534" parent="518" name="matches_player1_fkey">
+      <ColNames>player1</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>57519</ObjectId>
+      <StateNumber>14006</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>49402</RefTableId>
+    </foreign-key>
+    <foreign-key id="535" parent="518" name="matches_player2_fkey">
+      <ColNames>player2</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>57524</ObjectId>
+      <StateNumber>14006</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>49402</RefTableId>
+    </foreign-key>
+    <foreign-key id="536" parent="518" name="matches_winner_fkey">
+      <ColNames>winner</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>57529</ObjectId>
+      <StateNumber>14006</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>49402</RefTableId>
+    </foreign-key>
+    <index id="537" parent="518" name="matches_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>57517</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>14006</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="538" parent="518" name="matches_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>57518</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>14006</StateNumber>
+      <UnderlyingIndexId>57517</UnderlyingIndexId>
+    </key>
+    <column id="539" parent="519" name="id">
       <DefaultExpression>nextval(&apos;tennis.players_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -7746,14 +7809,14 @@ false Zulu
       <SequenceId>49401</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="530" parent="518" name="name">
+    <column id="540" parent="519" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>13994</StateNumber>
       <StoredType>varchar(128)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="531" parent="518" name="players_pkey">
+    <index id="541" parent="519" name="players_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49406</ObjectId>
@@ -7762,7 +7825,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="532" parent="518" name="players_name_key">
+    <index id="542" parent="519" name="players_name_key">
       <ColNames>name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49408</ObjectId>
@@ -7773,14 +7836,14 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="533" parent="518" name="players_pkey">
+    <key id="543" parent="519" name="players_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49407</ObjectId>
       <Primary>1</Primary>
       <StateNumber>13994</StateNumber>
       <UnderlyingIndexId>49406</UnderlyingIndexId>
     </key>
-    <key id="534" parent="518" name="players_name_key">
+    <key id="544" parent="519" name="players_name_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49409</ObjectId>
       <StateNumber>13994</StateNumber>

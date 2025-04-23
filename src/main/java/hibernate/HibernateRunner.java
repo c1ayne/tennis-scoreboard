@@ -2,8 +2,8 @@ package hibernate;
 
 import dao.MatchRepository;
 import dao.PlayerRepository;
-import entity.Match;
 import entity.Player;
+import jakarta.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -13,6 +13,8 @@ import util.HibernateUtil;
 import java.lang.reflect.Proxy;
 
 public class HibernateRunner {
+    // TODO test for match scoring
+    // TODO logging for all project
     private static final Logger log = LoggerFactory.getLogger(HibernateRunner.class);
 
     public static void main(String[] args) {

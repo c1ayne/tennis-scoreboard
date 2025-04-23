@@ -25,6 +25,10 @@ public class OngoingMatchService {
     private final MatchCreateMapper matchCreateMapper;
     private final MatchReadMapper matchReadMapper;
 
+    public Optional<OngoingMatchReadDto> findOngoingMatchById(UUID id) {
+        return ongoingMatchRepository.findById(id).map(ongoingMatchReadMapper::mapFrom);
+    }
+
     public OngoingMatchReadDto startMatch(String player1, String player2) {
         Long id1 = playerRepository.findByName(player1) == null
                 // name not found, create new player
@@ -51,6 +55,28 @@ public class OngoingMatchService {
         OngoingMatchReadDto match = ongoingMatchRepository.findById(matchId)
                 .map(ongoingMatchReadMapper::mapFrom)
                 .orElseThrow(() -> new EntityNotFoundException("match not founded"));
+        if (match.score().isTiebreak()) {
+            if (match.score().getPlayer1().equals(player)) {
+                match.score().setTiebreakPoint1(match.score().getTiebreakPoint1() + 1);
+            } else if (match.score().getPlayer2().equals(player)) {
+                match.score().setTiebreakPoint2(match.score().getTiebreakPoint2() + 1);
+            }
+
+            int tp1 = match.score().getTiebreakPoint1();
+            int tp2 = match.score().getTiebreakPoint2();
+
+            if ((tp1 >= 7 || tp2 >= 7) && Math.abs(tp1 - tp2) >= 2) {
+                match = winSet(matchId, player);
+                match.score().setTiebreakPoint1(0);
+                match.score().setTiebreakPoint2(0);
+                match.score().setTiebreak(false);
+                match.score().setGame1(0);
+                match.score().setGame2(0);
+            }
+
+            ongoingMatchRepository.update(ongoingMatchUpdateMapper.mapFrom(match));
+            return match;
+        }
         if (match.score().getPlayer1().equals(player)) {
             if (match.score().getPoint1().equals(0)) {
                 match.score().setPoint1(15);
@@ -100,22 +126,29 @@ public class OngoingMatchService {
         OngoingMatchReadDto match = ongoingMatchRepository.findById(matchId)
                 .map(ongoingMatchReadMapper::mapFrom)
                 .orElseThrow(() -> new EntityNotFoundException("match not founded"));
-        if (match.score().getPlayer1().equals(player)) {
+        boolean isPlayer1 = match.score().getPlayer1().equals(player);
+
+        if (isPlayer1) {
             match.score().setGame1(match.score().getGame1() + 1);
-            if (match.score().getGame1() >= 6 && (match.score().getGame1() - match.score().getGame2() >=2)) {
-                match = winSet(matchId, player);
-            }
-        } else if (match.score().getPlayer2().equals(player)) {
+        } else {
             match.score().setGame2(match.score().getGame2() + 1);
-            if (match.score().getGame2() >= 6 && (match.score().getGame2() - match.score().getGame1() >=2)) {
-                match = winSet(matchId, player);
-            }
         }
+
+        int g1 = match.score().getGame1();
+        int g2 = match.score().getGame2();
+
+        if (g1 == 6 && g2 == 6) {
+            match.score().setTiebreak(true);
+        } else if ((g1 >= 6 || g2 >= 6) && Math.abs(g1 - g2) >= 2) {
+            match = winSet(matchId, player);
+            match.score().setGame1(0);
+            match.score().setGame2(0);
+        }
+
         match.score().setPoint1(0);
         match.score().setPoint2(0);
 
         ongoingMatchRepository.update(ongoingMatchUpdateMapper.mapFrom(match));
-
         return match;
     }
 
